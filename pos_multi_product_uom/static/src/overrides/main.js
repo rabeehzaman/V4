@@ -39,7 +39,7 @@ patch(Orderline.prototype, {
   set_unit_price(price) {
     var self = this;
     console.log("set_unit_price", price)
-    if (!this.uom_id) {
+    if (!this.uom_id || this.price_type == "manual") {
       super.set_unit_price(price);
     } else {
       if (this.product.uom_id[0] !== this.uom_id) {
