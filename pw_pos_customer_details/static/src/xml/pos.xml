@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+    <xpath expr="//div[hasclass('cashier')]" position="after">
+        <t t-if="receipt.partner and props.order.pos.config.enable_customer_info">
+            <br/>
+            <div style="text-align: left">
+                <strong>Customer: </strong><span t-esc="receipt.partner.name"/><br/>
+                <strong>Phone: </strong><span t-esc="receipt.partner.phone or ''"/><br/>
+                <t t-if="receipt.partner.street">
+                    <span t-esc="receipt.partner.street or ''"/>
+                </t>
+                <t t-if="receipt.partner.zip">
+                    , <span t-esc="receipt.partner.zip or ''"/>
+                </t>
+                <t t-if="receipt.partner.city">
+                    , <span t-esc="receipt.partner.city or ''"/>
+                </t>
+                <t t-if="receipt.partner.state_id">
+                    , <span t-esc="receipt.partner.state_id[1] or ''"/>
+                </t>
+                <t t-if="receipt.partner.country_id">
+                    <br/><span t-esc="receipt.partner.country_id[1] or ''"/>
+                </t>
+            </div>
+        </t>
+    </xpath>    
+</t>
+</templates>

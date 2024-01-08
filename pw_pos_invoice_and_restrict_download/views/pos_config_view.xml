@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pos_config_view_form_inherit_pos_auto_invoice" model="ir.ui.view">
+            <field name="name">res.config.setting.form.inherit.auto.invoice</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//block[@id='pos_accounting_section']" position="after">
+                    <block title="POS Auto Invoice" id="pos_auto_invoice">
+                        <setting help="Auto invoice button is selected on pos">
+                            <field name="pw_auto_invoice"/>
+                        </setting>
+                        <setting help="Restrict to download invoice pdf on pos">
+                            <field name="pw_stop_invoice_pdf"/>
+                        </setting>
+                    </block>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

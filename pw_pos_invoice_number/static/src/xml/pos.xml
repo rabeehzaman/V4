@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pw_pos_invoice_number.ReceiptHeader" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+            <t t-if="props.data.invoice_number">
+                <div style="font-size: 14px;padding-top: 10px;text-align: center;font-weight: 700;">
+                    Invoice: <t t-esc="props.data.invoice_number"/>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

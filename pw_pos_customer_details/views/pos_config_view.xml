@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pos_config_view_form_inherit_pos_customer_inco" model="ir.ui.view">
+            <field name="name">res.config.setting.form.inherit.pos.customer.info</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//block[@id='pos_interface_section']" position="inside">
+                    <setting help="Print customer info on pos receipt">
+                        <field name="enable_customer_info"/>
+                    </setting>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
