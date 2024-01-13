@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+system_access_zadeleted_records,system_access_zadeleted_records,model_zadeleted_records,base.group_system,1,1,1,1
+other_users_zadeleted_records,other_users_zadeleted_records,model_zadeleted_records,,1,1,1,0
