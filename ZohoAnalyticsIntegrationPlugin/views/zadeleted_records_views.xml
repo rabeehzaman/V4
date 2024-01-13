@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="deleted_records_list_view" model="ir.ui.view">
+        <field name="model">zadeleted.records</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="model_id"/>
+                <field name="model_name" string="model_name"/>
+                <field name="record_id" string="record_id"/>
+            </tree>
+        </field>
+    </record>
+       <record id="delete_scheduler" model="ir.cron">
+        <field name="name">Delete last 30 days record</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">30</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall">0</field>
+        <field name="model_id" ref="model_zadeleted_records"/>
+        <field name="code"><![CDATA[       env['zadeleted.records'].search([('write_date','<',datetime.date.today() - datetime.timedelta(30))]).unlink() ]]></field>
+        <field name="priority">10</field>
+    </record>
+</odoo>
