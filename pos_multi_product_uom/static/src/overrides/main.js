@@ -34,11 +34,9 @@ patch(Orderline.prototype, {
   },
   set_unit(unit) {
     this.uom_id = unit;
-    // this.trigger('change', this);
   },
   set_unit_price(price) {
     var self = this;
-    console.log("set_unit_price", price)
     if (!this.uom_id || this.price_type == "manual") {
       super.set_unit_price(price);
     } else {

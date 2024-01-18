@@ -3,7 +3,6 @@
 /* See LICENSE file for full copyright and licensing details. */
 /* License URL : <https://store.webkul.com/license.html/> */
 import { patch } from "@web/core/utils/patch";
-import { ProductCard } from "@point_of_sale/app/generic_components/product_card/product_card";
 import { Orderline } from "@point_of_sale/app/generic_components/orderline/orderline";
 
 import { AbstractAwaitablePopup } from "@point_of_sale/app/popup/abstract_awaitable_popup";
@@ -28,7 +27,6 @@ export class UnitSelectionPopupWidget extends AbstractAwaitablePopup {
       }
     }
     this.render();
-    console.log("popup setup", this)
   }
   click_item(event) {
     var self = this;
@@ -53,8 +51,9 @@ export class UnitSelectionPopupWidget extends AbstractAwaitablePopup {
     self.props.orderline.set_unit(self.item);
     var pricelist = self.env.services.pos.get_order().pricelist;
     var unit_price = self.props.orderline.price;
-    console.log(pricelist)
-    var quantity = (this.env.services.pos.units_by_id[self.item].ratio);
+    // var quantity = (this.env.services.pos.units_by_id[self.item].ratio);
+    var quantity = (this.env.services.pos.units_by_id[self.props.orderline.uom_id].ratio / this.env.services.pos.units_by_id[self.props.orderline.product.uom_id[0]].ratio);
+
     var ratio = self.props.orderline.get_unit().ratio;
     var orderline_quantitys;
     if (quantity < 1) {

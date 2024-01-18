@@ -28,7 +28,7 @@
 
     <t t-name="Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension" owl="1">
         <xpath expr="//ul[hasclass('info-list')]//li[hasclass('price-per-unit')]" position="inside">
-            <span class="button-uom" t-if="!props.line.orderline.refunded_orderline_id and !props.line.orderline.order.finalized" t-on-click="open_UnitSelection_popup">
+            <span class="button-uom" t-if="!props.line.orderline.order.locked  and !props.line.orderline.order.finalized" t-on-click="open_UnitSelection_popup">
                 <i class="fa fa-balance-scale"></i>
             </span>
         </xpath>
