@@ -17,8 +17,8 @@ class SaleOrder(models.Model):
                     picking._autoconfirm_picking()
                     picking.button_validate()
                     for move_line in picking.move_ids_without_package:
-                        move_line.quantity = move_line.quantity_product_uom
-                    
+                        move_line.product_uom_qty = move_line.product_uom_qty
+    
                     for mv_line in picking.move_ids.mapped('move_line_ids'):
                         # if not mv_line.button_validate and mv_line.reserved_qty or mv_line.reserved_uom_qty:
                         mv_line.quantity = mv_line.quantity_product_uom#.reserved_qty or mv_line.reserved_uom_qty
