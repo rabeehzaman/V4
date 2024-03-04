@@ -39,9 +39,26 @@
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']/tbody//td[@name='td_quantity']" position="after">
             <td name="td_quantity" class="text-end">
-                <span t-field="line.secondary_uom_with_qty" groups="uom.group_uom">3.0 units</span>
+                <span t-field="line.secondary_uom_with_qty">3.0 units</span>
             </td>
         </xpath>
-
+    </template>
+    <template id="arabic_english_invoice" inherit_id="l10n_gcc_invoice.arabic_english_invoice">
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[6]" position="after">
+            <th name="th_quantity" class="text-end">
+                <span>
+                                   الكمية الثانوية
+                </span>
+                <br/>
+                <span>
+                                    Secondary Uom Qty
+                </span>
+            </th>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']//td[6]" position="after">
+            <td class="text-end">
+                <span class="text-nowrap" t-field="line.secondary_uom_with_qty"/>
+            </td>
+        </xpath>
     </template>
 </odoo>
