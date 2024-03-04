@@ -24,7 +24,7 @@
     "website"       :  "https://store.webkul.com/",
     "description"   :  """POS Multi UOM, Multiple units, Product Multi UOM, Product Multi Units""",
     "live_test_url" :  "http://odoodemo.webkul.com/?module=pos_multi_product_uom&custom_url=/pos/auto",
-    "depends"       :  ['point_of_sale'],
+    "depends"       :  ['point_of_sale','l10n_gcc_invoice'],
     'data'          : ['views/views.xml'],
     "assets"        :  {
                             'point_of_sale._assets_pos': [
