@@ -1,0 +1,34 @@
+/* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
+/* See LICENSE file for full copyright and licensing details. */
+/* License URL : <https://store.webkul.com/license.html/> */
+
+.pos .button-uom {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.pos .button-uom:hover {
+  background: #efefef;
+}
+
+.pos .button-uom:active {
+  background: black;
+}
+
+.pos .selection-unit {
+  width: auto;
+  background: rgb(230, 230, 230);
+  cursor: pointer;
+  text-align: left;
+  padding: 0px 16px;
+  color: black;
+}
+
+.pos .selection-unit.selected {
+  background-color: RGBA(0, 136, 24, var(--text-opacity, 1));
+  color: white;
+}
+
+.oe_hidden {
+  display: none;
+}
