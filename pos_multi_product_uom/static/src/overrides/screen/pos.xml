@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+    <t t-name="UnitSelectionPopupWidget">
+        <div class="popup popup-selection">
+            <p class="title fs-1 fw-bolder p-2 ">
+                <t t-esc=" props.title || 'Select' " />
+            </p>
+            <div class='selection scrollable-y touch-scrollable px-2'>
+                <t t-foreach="props.list || []" t-as="item" t-key="item.label">
+                    <div class="selection-item selection-unit p-2 fs-2" t-att-class="{ 'selected': item.selected }" t-on-click="click_item" t-att-data-item-index='item_index'>
+                        <t t-esc='item.label' />
+                    </div>
+                </t>
+            </div>
+            <div class="footer d-flex p-2 justify-content-end ">
+                <div class="button confirm  btn bt-success fs-2 mx-1 px-2 " t-on-click="click_confirm" t-att-class="{ 'oe_hidden': !props.is_selected}">
+                        Ok
+                </div>
+                <div class="button cancel  btn bt-secondary fs-2 mx-1 px-2 " t-on-click="cancel">
+                        Cancel
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension" owl="1">
+        <xpath expr="//ul[hasclass('info-list')]//li[hasclass('price-per-unit')]" position="inside">
+            <span class="button-uom" t-if="!props.line.orderline.order.locked  and !props.line.orderline.order.finalized" t-on-click="open_UnitSelection_popup">
+                <i class="fa fa-balance-scale"></i>
+            </span>
+        </xpath>
+    </t>
+</templates>
