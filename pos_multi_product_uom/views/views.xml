@@ -1,0 +1,56 @@
+<!--  Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>)  -->
+<!--  See LICENSE file for full copyright and licensing details.  -->
+<!--  License URL : <https://store.webkul.com/license.html/>  -->
+<odoo>
+    <data>
+        <record id="view_pos_pos_form_pos_multi_uom" model="ir.ui.view">
+            <field name="name">pos.order.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_uom_id']" position="after">
+                    <field name="secondary_uom_with_qty" string="Secondary Uom Qty"/>
+                </xpath>
+                <xpath expr="//field[@name='price_unit']" position="after">
+                    <field name="view" string=' ' />
+                </xpath>
+            </field>
+        </record>
+        <record id="view_move_form" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//field[@name='line_ids']//field[@name='price_unit']" position="before">
+                    <field name="secondary_uom_with_qty" string="Secondary Uom Qty"/>
+                </xpath> -->
+                <xpath expr="//field[@name='invoice_line_ids']//field[@name='price_unit']" position="after">
+                    <field name="secondary_uom_with_qty" string="Secondary Uom Qty"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <!-- <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[@name='th_quantity']" position="after">
+            <th name="th_quantity" class="text-end">
+                <span>Secondary Uom Qty</span>
+            </th>
+        </xpath> -->
+        <xpath expr="//table[@name='invoice_line_table']/tbody//td[@name='td_quantity']" position="replace">
+            <td name="td_quantity" class="text-end">
+                <span t-field="line.secondary_uom_with_qty" >3.0 units</span>
+            </td>
+        </xpath>
+
+    </template>
+
+    <template id="arabic_english_invoice_multi_uom" inherit_id="l10n_gcc_invoice.arabic_english_invoice">
+        <xpath expr="//span[@t-field='line.product_uom_id']" position="replace">
+         <span></span>
+        </xpath>
+         <xpath expr="//span[@t-field='line.quantity']" position="replace">
+             <span t-field="line.secondary_uom_with_qty">3.0 units</span>
+        </xpath>
+    </template>
+</odoo>
