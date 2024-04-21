@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <template id="account_invoice_report_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="." position="replace">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <style>
+                        table { border-collapse: collapse; border: 1px solid black:
+                        }
+                        tr { font-size: 11px; padding:3px; border: 1px solid black:
+                        }
+                        tr, td { border: 1px solid black:
+                        font-size: 11px; padding:3px;
+                        }
+                    </style>
+                        <center><h5><b>TAX INVOICE / فاتورة ضريبية</b></h5></center>
+                    <br/>
+                        <div styel="margin-bottom:10px">
+                            <div style="width: 25%; float:left; padding:2px;">
+                                <strong>Customer:</strong>
+                                <br/>
+                                <strong>Invoice Date:</strong>
+                                <br/>
+                                <strong>Due Date:</strong>
+                                <br/>
+                                <strong>Source:</strong>
+                                <br/>
+                                <strong>Reference:</strong>
+                                <br/>
+
+                            </div>
+
+                            <div style="width: 25%; float:left; padding:2px;">
+                                <span t-field="o.partner_id.name"/>
+                                <br/>
+                                <span t-field="o.invoice_date"/>
+                                <br/>
+                                <span t-field="o.invoice_date_due"/>
+                                <br/>
+                                <span t-field="o.invoice_origin"/>
+                                <br/>
+                                <span t-field="o.ref"/>
+                                <br/>
+
+                            </div>
+
+
+                            <div style="width: 25%; float:left; padding:2px;">
+                                <strong>: عميل</strong>
+                                <br/>
+                                <strong>: تاريخ الفاتورة</strong>
+                                <br/>
+                                <strong>: تاريخ الاستحقاق</strong>
+                                <br/>
+                                <strong>: مصدر</strong>
+                                <br/>
+                                <strong>: مرجع</strong>
+                                <br/>
+
+                            </div>
+
+                            <div style="width: 25%; float:left; padding:2px;">
+                            <h1>
+                                <span t-field="o.display_qr_code"/>
+                            </h1>
+                            <br/>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+
+                        <div style="width: 100%; margin-top:10px">
+                            <table  class="table table-condensed" style="border: 1px solid black;">
+                            <thead>
+                                <tr>
+                                    <th style="border: 1px solid black">
+                                        <b>Description وصف</b>
+                                    </th>
+                                    <th style="border: 1px solid black;">
+                                        <b>Quantity كمية</b>
+                                    </th>
+                                    <th style="border: 1px solid black;">
+                                        <b>Unit Price سعر الوحدة</b>
+                                    </th>
+
+                                    <th style="border: 1px solid black">
+                                        <b>Subtotal المجموع الفرعي</b>
+                                    </th>
+                                    <th style="border: 1px solid black;">
+                                        <b>Taxes الضرائب</b>
+                                    </th>
+                                    <th style="border: 1px solid black;">
+                                        <b>Total Price السعر الكلي</b>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                            <t t-set="current_subtotal" t-value="0"/>
+                            <t t-foreach="o.invoice_line_ids" t-as="line">
+                                <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+
+                                <tr>
+                                    <td style="border: 1px solid black;" class="text-center">
+                                        <span t-field="line.name"/>
+                                    </td>
+
+                                    <td class="text-center" style="border: 1px solid black;">
+                                        <span t-field="line.quantity"/>
+                                    </td>
+
+                                    <td class="text-center" style="border: 1px solid black;">
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+
+                                    <td class="text-center" style="border: 1px solid black;">
+                                        <t t-set="current_subtotal" t-value="line.price_unit + line.quantity"/>
+                                        <span class="text-nowrap" t-field="line.price_subtotal"/>
+                                    </td>
+
+                                    <td class="text-center" style="border: 1px solid black;">
+                                        <span class="text-nowrap" t-field="line.tax_ids.name"/>
+                                    </td>
+
+                                    <td class="text-center" style="border: 1px solid black;">
+                                        <span class="text-nowrap" t-field="line.price_total"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        </table>
+                        </div>
+    <!--               main table total part right side -->
+                        <div style="width: 30%; float:right; margin-top: 5px">
+                            <table class="table table-sm" style="border: 1px solid black;">
+                                <tr class="border-black">
+                                    <td name="td_subtotal_label" style="border-top: 1px solid black"><strong>Untaxed Amount <br/>المجموع </strong></td>
+                                    <td class="text-right" style="border-top: 1px solid black">
+                                        <span t-field="o.amount_untaxed"
+                                            t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td name="td_taxes_label" style="border-top: 1px solid black"><strong>Taxes Amount <br/>الضرائب </strong></td>
+                                    <td class="text-right" style="border-top: 1px solid black">
+                                        <span t-field="o.amount_tax"
+                                            t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black o_total">
+                                    <td name="td_amount_total_label" style="border-top: 1px solid black"><strong>Total <br/>المجاميع </strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_total"
+                                            t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+<!--                end report div -->
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>
+    
+                        
